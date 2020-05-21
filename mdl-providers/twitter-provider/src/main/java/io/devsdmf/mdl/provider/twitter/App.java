@@ -3,9 +3,12 @@ package io.devsdmf.mdl.provider.twitter;
 import io.devsdmf.mdl.provider.twitter.api.ApiClient;
 import io.devsdmf.mdl.provider.twitter.api.auth.BearerTokenCredentials;
 import io.devsdmf.mdl.provider.twitter.api.resources.Tweet;
+import io.devsdmf.mdl.provider.twitter.exception.TwitterException;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Optional;
 
 public class App {
@@ -30,14 +33,33 @@ public class App {
 //        }
 
         // fetch tweet
-        BearerTokenCredentials credentials = new BearerTokenCredentials(ACCESS_TOKEN);
-        Optional<Tweet> tweet = client.getTweet(TWEET_ID,credentials);
+//        BearerTokenCredentials credentials = new BearerTokenCredentials(ACCESS_TOKEN);
+//        Optional<Tweet> tweet = client.getTweet(TWEET_ID,credentials);
+//
+//        if (tweet.isPresent()) {
+//            System.out.println("Successfully fetched tweet!");
+//            System.out.println(tweet.get().getId());
+//        } else {
+//            System.out.println("Failed to fetch tweet");
+//        }
 
-        if (tweet.isPresent()) {
-            System.out.println("Successfully fetched tweet!");
-            System.out.println(tweet.get().getId());
-        } else {
-            System.out.println("Failed to fetch tweet");
+        // extract video from tweet
+        BearerTokenCredentials credentials = new BearerTokenCredentials(ACCESS_TOKEN);
+        TwitterExtractor extractor = new TwitterExtractor(client,credentials);
+
+        try {
+            URI videoUrl = extractor.extractVideoFrom(new URI("https://twitter.com/devsdmf/status/1261658226283732992?s=20"));
+
+            if (videoUrl != null) {
+                System.out.println("VIDEO URL ==> " + videoUrl.toString());
+            } else {
+                System.out.println("Could not find video URL");
+            }
+        } catch (TwitterException e) {
+            System.out.println("An error occurred at try to extract video from tweet, " +
+                    "an exception with message was caught: " + e.getMessage());
+        } catch (URISyntaxException e) {
+            System.out.println("An error occurred at try to parse URI");
         }
     }
 }

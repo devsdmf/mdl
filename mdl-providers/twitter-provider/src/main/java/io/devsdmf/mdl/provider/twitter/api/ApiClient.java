@@ -52,6 +52,7 @@ public class ApiClient {
             URI requestURI = getBaseURI()
                     .setPath(API_VERSION + "/statuses/show.json")
                     .setParameter("id",tweetId)
+                    .setParameter("tweet_mode","extended")
                     .build();
 
             HttpGet request = new HttpGet(requestURI);

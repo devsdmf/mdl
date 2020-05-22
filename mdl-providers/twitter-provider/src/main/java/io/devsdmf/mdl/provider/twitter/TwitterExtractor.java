@@ -27,6 +27,24 @@ public class TwitterExtractor implements Extractor {
         this.logger = LoggerFactory.getLogger(TwitterExtractor.class);
     }
 
+    public URI extractImageFrom(URI src) throws TwitterException {
+        String tweetId = getTweetIdFromUri(src);
+        Optional<Tweet> tweet = client.getTweet(tweetId,credentials);
+
+        if (tweet.isPresent()) {
+            List<Media> media = tweet.get().getExtendedEntities().getMedia();
+            for (Media m: media) {
+                if (m.getClass().equals(Photo.class)) {
+                    return m.getMediaUrlSecure();
+                }
+            }
+
+            throw new TwitterException("Could not find any valid photo in the specified tweet");
+        } else {
+            throw new TwitterException("Tweet not found");
+        }
+    }
+
     public URI extractVideoFrom(URI src) throws TwitterException {
         String tweetId = getTweetIdFromUri(src);
         Optional<Tweet> tweet = client.getTweet(tweetId,credentials);
@@ -57,6 +75,7 @@ public class TwitterExtractor implements Extractor {
     }
 
     private String getTweetIdFromUri(URI uri) throws TwitterException {
+        // TODO: Improve URL parsing and validation
         String path = uri.getPath();
 
         Pattern p = Pattern.compile("\\/(\\d+)");

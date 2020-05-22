@@ -44,19 +44,38 @@ public class App {
 //        }
 
         // extract video from tweet
+//        BearerTokenCredentials credentials = new BearerTokenCredentials(ACCESS_TOKEN);
+//        TwitterExtractor extractor = new TwitterExtractor(client,credentials);
+
+//        try {
+//            URI videoUrl = extractor.extractVideoFrom(new URI("https://twitter.com/devsdmf/status/1261658226283732992?s=20"));
+//
+//            if (videoUrl != null) {
+//                System.out.println("VIDEO URL ==> " + videoUrl.toString());
+//            } else {
+//                System.out.println("Could not find video URL");
+//            }
+//        } catch (TwitterException e) {
+//            System.out.println("An error occurred at try to extract video from tweet, " +
+//                    "an exception with message was caught: " + e.getMessage());
+//        } catch (URISyntaxException e) {
+//            System.out.println("An error occurred at try to parse URI");
+//        }
+
+        // extract image from tweet
         BearerTokenCredentials credentials = new BearerTokenCredentials(ACCESS_TOKEN);
         TwitterExtractor extractor = new TwitterExtractor(client,credentials);
 
         try {
-            URI videoUrl = extractor.extractVideoFrom(new URI("https://twitter.com/devsdmf/status/1261658226283732992?s=20"));
+            URI imageUrl = extractor.extractImageFrom(new URI("https://twitter.com/devsdmf/status/1261770150208065538?s=20"));
 
-            if (videoUrl != null) {
-                System.out.println("VIDEO URL ==> " + videoUrl.toString());
+            if (imageUrl != null) {
+                System.out.println("IMAGE URL => " + imageUrl.toString());
             } else {
-                System.out.println("Could not find video URL");
+                System.out.println("Could not find image URL");
             }
         } catch (TwitterException e) {
-            System.out.println("An error occurred at try to extract video from tweet, " +
+            System.out.println("An error occurred at try to extract image from tweet, " +
                     "an exception with message was caught: " + e.getMessage());
         } catch (URISyntaxException e) {
             System.out.println("An error occurred at try to parse URI");

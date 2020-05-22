@@ -13,10 +13,10 @@ import java.util.Optional;
 
 public class App {
 
-    private static final String CONSUMER_KEY = "EFsNi1XQ4e62GzHiRcqI9P4Hj";
-    private static final String CONSUMER_SECRET = "lGH8odmVI424eqaUJCcvVvbjfgmg5bSARQNPTcwOpTNMnCxGi4";
-    private static final String ACCESS_TOKEN = "AAAAAAAAAAAAAAAAAAAAAMHuigAAAAAACS0%2BL7OEdzPFCSVUy1veuIL7qkE%3D4uD3WZsk1jopEYDcfDdDI7mRzTGWavVBGwYdgM5zrmzqxcpTa3";
-    private static final String TWEET_ID = "1253042706391203845";
+//    private static final String CONSUMER_KEY = "EFsNi1XQ4e62GzHiRcqI9P4Hj";
+//    private static final String CONSUMER_SECRET = "lGH8odmVI424eqaUJCcvVvbjfgmg5bSARQNPTcwOpTNMnCxGi4";
+//    private static final String ACCESS_TOKEN = "AAAAAAAAAAAAAAAAAAAAAMHuigAAAAAACS0%2BL7OEdzPFCSVUy1veuIL7qkE%3D4uD3WZsk1jopEYDcfDdDI7mRzTGWavVBGwYdgM5zrmzqxcpTa3";
+//    private static final String TWEET_ID = "1253042706391203845";
 
     public static void main(String[] args) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -44,23 +44,23 @@ public class App {
 //        }
 
         // extract video from tweet
-        BearerTokenCredentials credentials = new BearerTokenCredentials(ACCESS_TOKEN);
-        TwitterExtractor extractor = new TwitterExtractor(client,credentials);
-
-        try {
-            URI videoUrl = extractor.extractVideoFrom(new URI("https://twitter.com/devsdmf/status/1261658226283732992?s=20"));
-
-            if (videoUrl != null) {
-                System.out.println("VIDEO URL ==> " + videoUrl.toString());
-            } else {
-                System.out.println("Could not find video URL");
-            }
-        } catch (TwitterException e) {
-            System.out.println("An error occurred at try to extract video from tweet, " +
-                    "an exception with message was caught: " + e.getMessage());
-        } catch (URISyntaxException e) {
-            System.out.println("An error occurred at try to parse URI");
-        }
+//        BearerTokenCredentials credentials = new BearerTokenCredentials(ACCESS_TOKEN);
+//        TwitterExtractor extractor = new TwitterExtractor(client,credentials);
+//
+//        try {
+//            URI videoUrl = extractor.extractVideoFrom(new URI("https://twitter.com/devsdmf/status/1261658226283732992?s=20"));
+//
+//            if (videoUrl != null) {
+//                System.out.println("VIDEO URL ==> " + videoUrl.toString());
+//            } else {
+//                System.out.println("Could not find video URL");
+//            }
+//        } catch (TwitterException e) {
+//            System.out.println("An error occurred at try to extract video from tweet, " +
+//                    "an exception with message was caught: " + e.getMessage());
+//        } catch (URISyntaxException e) {
+//            System.out.println("An error occurred at try to parse URI");
+//        }
 
         // extract image from tweet
 //        BearerTokenCredentials credentials = new BearerTokenCredentials(ACCESS_TOKEN);

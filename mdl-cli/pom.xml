@@ -21,9 +21,8 @@
         </dependency>
         <dependency>
             <groupId>io.devsdmf.mdl</groupId>
-            <artifactId>mdl-providers</artifactId>
+            <artifactId>twitter-provider</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>info.picocli</groupId>

@@ -10,7 +10,7 @@ import java.net.URL;
 public class SimpleHttpDownloader implements Downloader {
 
     public File download(URL fileUrl, String outputFileName) throws IOException {
-        HttpURLConnection httpConnection = (HttpURLConnection) fileUrl.openConnection();
+//        HttpURLConnection httpConnection = (HttpURLConnection) fileUrl.openConnection();
 
         // getting the file size
 //        httpConnection.setRequestMethod("HEAD");

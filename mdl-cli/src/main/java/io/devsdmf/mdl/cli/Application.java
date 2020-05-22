@@ -1,7 +1,6 @@
 package io.devsdmf.mdl.cli;
 
-import io.devsdmf.mdl.cli.command.MainCommand;
-import picocli.CommandLine;
+import java.net.URI;
 
 /**
  * Hello world!
@@ -10,6 +9,6 @@ import picocli.CommandLine;
 public class Application
 {
     public static void main(String[] args) {
-        CommandLine.run(new MainCommand());
+
     }
 }

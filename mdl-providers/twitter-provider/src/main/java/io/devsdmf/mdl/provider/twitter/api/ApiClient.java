@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
@@ -76,7 +75,7 @@ public class ApiClient {
         }
     }
 
-    public Optional<BearerTokenCredentials> getAccessTokenFor(String consumerKey, String consumerSecret) {
+    public Optional<BearerTokenCredentials> getAccessToken(String consumerKey, String consumerSecret) {
         try {
             logger.debug(String.format(
                     "Attempting to request access token for [consumerKey=%s] and [consumerSecret=%s]",
@@ -99,7 +98,7 @@ public class ApiClient {
                 if (json.has("token_type") && json.has("access_token")) {
                     String tokenType = json.get("token_type").asText("");
 
-                    if (tokenType.equals("bearer")) {
+                    if (tokenType.equalsIgnoreCase("bearer")) {
                         logger.info("Successfully generated the requested access token");
                         return Optional.of(new BearerTokenCredentials(json.get("access_token").asText()));
                     } else {

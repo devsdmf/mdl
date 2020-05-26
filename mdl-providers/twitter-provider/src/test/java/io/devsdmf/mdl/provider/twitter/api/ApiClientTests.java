@@ -9,7 +9,6 @@ import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import util.Resource;
-
 import java.io.IOException;
 import java.util.Optional;
 

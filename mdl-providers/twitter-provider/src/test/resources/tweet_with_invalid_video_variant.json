@@ -124,16 +124,6 @@
           "duration_millis":6747,
           "variants":[
             {
-              "bitrate":432000,
-              "content_type":"video\/mp4",
-              "url":"https:\/\/video.twimg.com\/ext_tw_video\/1261658208764125189\/pu\/vid\/320x320\/U4DKW1xCfu1orwRK.mp4?tag=10"
-            },
-            {
-              "bitrate":832000,
-              "content_type":"video\/mp4",
-              "url":"https:\/\/video.twimg.com\/ext_tw_video\/1261658208764125189\/pu\/vid\/480x480\/IJSU2CJrpkVlswhE.mp4?tag=10"
-            },
-            {
               "content_type":"application\/x-mpegURL",
               "url":"https:\/\/video.twimg.com\/ext_tw_video\/1261658208764125189\/pu\/pl\/twurnm7gH3ltuPKw.m3u8?tag=10"
             }

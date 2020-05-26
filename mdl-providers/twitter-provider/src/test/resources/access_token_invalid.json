@@ -1,1 +1,4 @@
-{"token_type": "invalid","access_token": "RandomAccessT0k3n"}
+{
+  "token_type": "invalid",
+  "access_token": "RandomAccessT0k3n"
+}

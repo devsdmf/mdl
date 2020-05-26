@@ -68,7 +68,7 @@ public class TwitterExtractor implements Extractor {
                 }
             }
 
-            throw new TwitterException("Could not find any valid video in the specified tweet");
+            throw new TwitterException("Could not find any media in the specified tweet");
         } else {
             throw new TwitterException("Tweet not found");
         }

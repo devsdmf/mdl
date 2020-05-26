@@ -8,12 +8,10 @@ import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import java.io.BufferedReader;
+import util.Resource;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.mockito.Mockito.*;
 
@@ -24,7 +22,7 @@ public class ApiClientTests {
         // mock
         HttpClient httpClient = mock(HttpClient.class);
         when(httpClient.execute(any(HttpGet.class),any(HttpClientResponseHandler.class)))
-                .thenReturn(getResourceFileAsString("tweet.json"));
+                .thenReturn(Resource.getResourceFileAsString("tweet.json"));
 
         // given
         String tweetId = "01234567890";
@@ -62,7 +60,7 @@ public class ApiClientTests {
         // mock
         HttpClient httpClient = mock(HttpClient.class);
         when(httpClient.execute(any(HttpPost.class),any(HttpClientResponseHandler.class)))
-                .thenReturn(getResourceFileAsString("access_token.json"));
+                .thenReturn(Resource.getResourceFileAsString("access_token.json"));
 
         // given
         String consumerKey = "TestConsumerKey";
@@ -81,7 +79,7 @@ public class ApiClientTests {
         // mock
         HttpClient httpClient = mock(HttpClient.class);
         when(httpClient.execute(any(HttpPost.class),any(HttpClientResponseHandler.class)))
-                .thenReturn(getResourceFileAsString("access_token_invalid.json"));
+                .thenReturn(Resource.getResourceFileAsString("access_token_invalid.json"));
 
         // given
         String consumerKey = "TestConsumerKey";
@@ -100,7 +98,7 @@ public class ApiClientTests {
         // mock
         HttpClient httpClient = mock(HttpClient.class);
         when(httpClient.execute(any(HttpPost.class),any(HttpClientResponseHandler.class)))
-                .thenReturn(getResourceFileAsString("access_token_missing_property.json"));
+                .thenReturn(Resource.getResourceFileAsString("access_token_missing_property.json"));
 
         // given
         String consumerKey = "TestConsumerKey";
@@ -131,16 +129,5 @@ public class ApiClientTests {
 
         // then
         Assertions.assertFalse(credentials.isPresent());
-    }
-
-    private static String getResourceFileAsString(String filename) throws IOException {
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        try (InputStream in = classLoader.getResourceAsStream(filename)) {
-            if (in == null) return null;
-            try (InputStreamReader reader = new InputStreamReader(in)) {
-                BufferedReader buffer = new BufferedReader(reader);
-                return buffer.lines().collect(Collectors.joining(System.lineSeparator()));
-            }
-        }
     }
 }

@@ -21,16 +21,17 @@ public class ApiClientTests {
 
     @Test
     public void testGetTweetSuccess() throws IOException {
+        // mock
+        HttpClient httpClient = mock(HttpClient.class);
+        when(httpClient.execute(any(HttpGet.class),any(HttpClientResponseHandler.class)))
+                .thenReturn(getResourceFileAsString("tweet.json"));
+
         // given
         String tweetId = "01234567890";
         BearerTokenCredentials credentials = new BearerTokenCredentials();
+        ApiClient client = new ApiClient(httpClient);
 
         // when
-        HttpClient httpClient = mock(HttpClient.class);
-        when(httpClient.execute(any(HttpGet.class),any(HttpClientResponseHandler.class)))
-            .thenReturn(getResourceFileAsString("tweet.json"));
-
-        ApiClient client = new ApiClient(httpClient);
         Optional<Tweet> t = client.getTweet(tweetId,credentials);
 
         // then
@@ -39,16 +40,17 @@ public class ApiClientTests {
 
     @Test
     public void testGetTweetFail() throws IOException {
+        // mock
+        HttpClient httpClient = mock(HttpClient.class);
+        when(httpClient.execute(any(HttpGet.class),any(HttpClientResponseHandler.class)))
+                .thenReturn(null);
+
         // given
         String tweetId = "01234567890";
         BearerTokenCredentials credentials = new BearerTokenCredentials();
+        ApiClient client = new ApiClient(httpClient);
 
         // when
-        HttpClient httpClient = mock(HttpClient.class);
-        when(httpClient.execute(any(HttpGet.class),any(HttpClientResponseHandler.class)))
-            .thenReturn(null);
-
-        ApiClient client = new ApiClient(httpClient);
         Optional<Tweet> t = client.getTweet(tweetId,credentials);
 
         // then
@@ -57,16 +59,17 @@ public class ApiClientTests {
 
     @Test
     public void testGetAccessTokenSuccess() throws IOException {
+        // mock
+        HttpClient httpClient = mock(HttpClient.class);
+        when(httpClient.execute(any(HttpPost.class),any(HttpClientResponseHandler.class)))
+                .thenReturn(getResourceFileAsString("access_token.json"));
+
         // given
         String consumerKey = "TestConsumerKey";
         String consumerSecret = "RandomConsumerSecret";
+        ApiClient client = new ApiClient(httpClient);
 
         // when
-        HttpClient httpClient = mock(HttpClient.class);
-        when(httpClient.execute(any(HttpPost.class),any(HttpClientResponseHandler.class)))
-            .thenReturn(getResourceFileAsString("access_token.json"));
-
-        ApiClient client = new ApiClient(httpClient);
         Optional<BearerTokenCredentials> credentials = client.getAccessToken(consumerKey,consumerSecret);
 
         // then
@@ -75,16 +78,17 @@ public class ApiClientTests {
 
     @Test
     public void testGetAccessTokenFailDueToInvalidTokenType() throws IOException {
-        // given
-        String consumerKey = "TestConsumerKey";
-        String consumerSecret = "RandomConsumerSecret";
-
-        // when
+        // mock
         HttpClient httpClient = mock(HttpClient.class);
         when(httpClient.execute(any(HttpPost.class),any(HttpClientResponseHandler.class)))
                 .thenReturn(getResourceFileAsString("access_token_invalid.json"));
 
+        // given
+        String consumerKey = "TestConsumerKey";
+        String consumerSecret = "RandomConsumerSecret";
         ApiClient client = new ApiClient(httpClient);
+
+        // when
         Optional<BearerTokenCredentials> credentials = client.getAccessToken(consumerKey,consumerSecret);
 
         // then
@@ -93,16 +97,17 @@ public class ApiClientTests {
 
     @Test
     public void testGetAccessTokenFailDueToMissingToken() throws IOException {
-        // given
-        String consumerKey = "TestConsumerKey";
-        String consumerSecret = "RandomConsumerSecret";
-
-        // when
+        // mock
         HttpClient httpClient = mock(HttpClient.class);
         when(httpClient.execute(any(HttpPost.class),any(HttpClientResponseHandler.class)))
                 .thenReturn(getResourceFileAsString("access_token_missing_property.json"));
 
+        // given
+        String consumerKey = "TestConsumerKey";
+        String consumerSecret = "RandomConsumerSecret";
         ApiClient client = new ApiClient(httpClient);
+
+        // when
         Optional<BearerTokenCredentials> credentials = client.getAccessToken(consumerKey,consumerSecret);
 
         // then
@@ -111,16 +116,17 @@ public class ApiClientTests {
 
     @Test
     public void testGetAccessTokenFail() throws IOException {
-        // given
-        String consumerKey = "TestConsumerKey";
-        String consumerSecret = "RandomConsumerSecret";
-
-        // when
+        // mock
         HttpClient httpClient = mock(HttpClient.class);
         when(httpClient.execute(any(HttpPost.class),any(HttpClientResponseHandler.class)))
                 .thenReturn(null);
 
+        // given
+        String consumerKey = "TestConsumerKey";
+        String consumerSecret = "RandomConsumerSecret";
         ApiClient client = new ApiClient(httpClient);
+
+        // when
         Optional<BearerTokenCredentials> credentials = client.getAccessToken(consumerKey,consumerSecret);
 
         // then

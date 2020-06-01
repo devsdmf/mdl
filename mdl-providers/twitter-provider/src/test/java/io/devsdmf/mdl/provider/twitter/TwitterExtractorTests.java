@@ -3,7 +3,6 @@ package io.devsdmf.mdl.provider.twitter;
 import io.devsdmf.mdl.extractor.Extractor;
 import io.devsdmf.mdl.provider.twitter.api.ApiClient;
 import io.devsdmf.mdl.provider.twitter.api.auth.BearerTokenCredentials;
-import io.devsdmf.mdl.provider.twitter.exception.TwitterException;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.junit.jupiter.api.Assertions;

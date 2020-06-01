@@ -4,7 +4,6 @@ import io.devsdmf.mdl.extractor.Extractor;
 import io.devsdmf.mdl.provider.twitter.api.ApiClient;
 import io.devsdmf.mdl.provider.twitter.api.auth.BearerTokenCredentials;
 import io.devsdmf.mdl.provider.twitter.api.resources.*;
-import io.devsdmf.mdl.provider.twitter.exception.TwitterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.net.URI;
@@ -15,13 +14,16 @@ import java.util.regex.Pattern;
 
 public class TwitterExtractor implements Extractor {
 
+    private Configuration config;
+
     private ApiClient client;
 
     private BearerTokenCredentials credentials;
 
     private Logger logger;
 
-    public TwitterExtractor(ApiClient client, BearerTokenCredentials credentials) {
+    public TwitterExtractor(Configuration config, ApiClient client, BearerTokenCredentials credentials) {
+        this.config = config;
         this.client = client;
         this.credentials = credentials;
         this.logger = LoggerFactory.getLogger(TwitterExtractor.class);

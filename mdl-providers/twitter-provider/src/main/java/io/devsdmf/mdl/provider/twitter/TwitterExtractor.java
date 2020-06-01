@@ -52,25 +52,8 @@ public class TwitterExtractor implements Extractor {
         Optional<Tweet> tweet = client.getTweet(tweetId,credentials);
 
         if (tweet.isPresent()) {
-            List<Media> media = tweet.get().getExtendedEntities().getMedia();
-            for (Media m: media) {
-                if (m.getClass().equals(Video.class)) {
-                    List<Variant> variants = ((Video) m).getVariants();
-                    // TODO: Implement algo to get the best variant
-                    Optional<Variant> variant = variants
-                            .stream()
-                            .filter(v -> v.getContentType().equals("video/mp4"))
-                            .findAny();
-
-                    if (variant.isPresent()) {
-                        return variant.get().getUrl();
-                    } else {
-                        throw new TwitterException("Could not find any valid video variant");
-                    }
-                }
-            }
-
-            throw new TwitterException("Could not find any media in the specified tweet");
+            Resolver videoResolver = new VideoResolver();
+            return videoResolver.resolve(tweet.get());
         } else {
             throw new TwitterException("Tweet not found");
         }

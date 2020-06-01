@@ -3,6 +3,7 @@ package io.devsdmf.mdl.cli;
 import io.devsdmf.mdl.downloader.Downloader;
 import io.devsdmf.mdl.downloader.SimpleHttpDownloader;
 import io.devsdmf.mdl.extractor.Extractor;
+import io.devsdmf.mdl.provider.twitter.Configuration;
 import io.devsdmf.mdl.provider.twitter.TwitterExtractor;
 import io.devsdmf.mdl.provider.twitter.api.ApiClient;
 import io.devsdmf.mdl.provider.twitter.api.auth.BearerTokenCredentials;
@@ -27,9 +28,10 @@ public class Application
             URI tweetUrl = new URI(args[0]);
             String destinationFile = args[1];
 
+            Configuration config = new Configuration();
             ApiClient twitterClient = new ApiClient(HttpClients.createDefault());
             BearerTokenCredentials twitterCredentials = new BearerTokenCredentials(TWITTER_ACCESS_TOKEN);
-            Extractor extractor = new TwitterExtractor(twitterClient,twitterCredentials);
+            Extractor extractor = new TwitterExtractor(config,twitterClient,twitterCredentials);
 
             URI mediaUrl = extractor.extractVideoFrom(tweetUrl);
 

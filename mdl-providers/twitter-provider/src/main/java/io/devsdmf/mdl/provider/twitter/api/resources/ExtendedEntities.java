@@ -3,14 +3,17 @@ package io.devsdmf.mdl.provider.twitter.api.resources;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ExtendedEntities implements Resource{
 
     private List<Media> media;
 
     public ExtendedEntities() {}
+
+    public ExtendedEntities(List<Media> media) {
+        this.media = media;
+    }
 
     public ExtendedEntities(JsonNode json) throws URISyntaxException {
         if (json.has("media") && json.get("media").isArray()) {

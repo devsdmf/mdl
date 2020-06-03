@@ -6,9 +6,11 @@ import java.net.URISyntaxException;
 
 public class Variant {
 
+    public static final String CONTENT_TYPE_MP4 = "video/mp4";
+
     private Long bitRate;
 
-    private String contentType;
+    private ContentType contentType;
 
     private URI url;
 
@@ -20,7 +22,7 @@ public class Variant {
         }
 
         if (json.has("content_type")) {
-            this.contentType = json.get("content_type").asText();
+            this.contentType = ContentType.fromValue(json.get("content_type").asText());
         }
 
         if (json.has("url")) {
@@ -28,12 +30,24 @@ public class Variant {
         }
     }
 
+    public void setBitRate(Long bitRate) {
+        this.bitRate = bitRate;
+    }
+
     public Long getBitRate() {
         return bitRate;
     }
 
-    public String getContentType() {
+    public void setContentType(ContentType contentType) {
+        this.contentType = contentType;
+    }
+
+    public ContentType getContentType() {
         return contentType;
+    }
+
+    public void setUrl(URI url) {
+        this.url = url;
     }
 
     public URI getUrl() {

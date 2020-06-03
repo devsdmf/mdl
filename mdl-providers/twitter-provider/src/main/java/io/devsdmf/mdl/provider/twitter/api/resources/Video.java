@@ -12,6 +12,10 @@ public class Video extends Media {
 
     public Video() {}
 
+    public Video(List<Variant> variants) {
+        this.variants = variants;
+    }
+
     public Video(JsonNode json) throws URISyntaxException {
         super(json);
 

@@ -19,7 +19,9 @@ public class Tweet implements Resource {
 
     private Date createdAt;
 
-    public Tweet() {}
+    public Tweet() {
+        this.createdAt = new Date();
+    }
 
     public Tweet(JsonNode json) throws URISyntaxException, ParseException {
         if (json.has("id")) {
@@ -44,16 +46,32 @@ public class Tweet implements Resource {
         }
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public String getText() {
         return text;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public User getUser() {
         return user;
+    }
+
+    public void setExtendedEntities(ExtendedEntities entities) {
+        this.extendedEntities = entities;
     }
 
     public ExtendedEntities getExtendedEntities() {

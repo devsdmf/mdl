@@ -2,7 +2,7 @@ package io.devsdmf.mdl.provider.twitter.api.resources;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-class User implements Resource {
+public class User implements Resource {
 
     private Long id;
 

@@ -1,11 +1,7 @@
 package io.devsdmf.mdl.provider.twitter;
 
-import io.devsdmf.mdl.provider.twitter.api.resources.Media;
-import io.devsdmf.mdl.provider.twitter.api.resources.Tweet;
-import io.devsdmf.mdl.provider.twitter.api.resources.Variant;
-import io.devsdmf.mdl.provider.twitter.api.resources.Video;
+import io.devsdmf.mdl.provider.twitter.api.resources.*;
 
-import javax.swing.text.html.Option;
 import java.net.URI;
 import java.util.Comparator;
 import java.util.List;
@@ -26,7 +22,7 @@ public class VideoResolver implements Resolver {
 
             Optional<Variant> variant = variants
                     .stream()
-                    .filter(v -> v.getContentType().equalsIgnoreCase(DEFAULT_CONTENT_TYPE))
+                    .filter(v -> v.getContentType().equals(ContentType.VIDEO_MP4))
                     .min(sortBy);
 
             if (variant.isPresent()) {

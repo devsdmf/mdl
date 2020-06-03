@@ -23,7 +23,7 @@ public class Tweet implements Resource {
         this.createdAt = new Date();
     }
 
-    public Tweet(JsonNode json) throws URISyntaxException, ParseException {
+    public Tweet(JsonNode json) throws URISyntaxException, ResourceException {
         if (json.has("id")) {
             this.id = json.get("id").asLong();
         }
@@ -42,7 +42,11 @@ public class Tweet implements Resource {
 
         if (json.has("created_at")) {
             SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
-            this.createdAt = df.parse(json.get("created_at").asText());
+            try {
+                this.createdAt = df.parse(json.get("created_at").asText());
+            } catch (ParseException e) {
+                throw new ResourceException("An error occurred at try to parse the createdAt parameter",e);
+            }
         }
     }
 

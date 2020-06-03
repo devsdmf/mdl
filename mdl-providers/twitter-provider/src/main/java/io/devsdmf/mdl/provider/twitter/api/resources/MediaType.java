@@ -3,7 +3,8 @@ package io.devsdmf.mdl.provider.twitter.api.resources;
 public enum MediaType {
     PHOTO("photo"),
     VIDEO("video"),
-    GIF("animated_gif");
+    GIF("animated_gif"),
+    UNKNOWN("unknown");
 
     public final String value;
 

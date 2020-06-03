@@ -34,14 +34,8 @@ public class TwitterExtractor implements Extractor {
         Optional<Tweet> tweet = client.getTweet(tweetId,credentials);
 
         if (tweet.isPresent()) {
-            List<Media> media = tweet.get().getExtendedEntities().getMedia();
-            for (Media m: media) {
-                if (m.getClass().equals(Photo.class)) {
-                    return m.getMediaUrlSecure();
-                }
-            }
-
-            throw new TwitterException("Could not find any valid photo in the specified tweet");
+            Resolver imageResolver = new ImageResolver();
+            return imageResolver.resolve(tweet.get());
         } else {
             throw new TwitterException("Tweet not found");
         }

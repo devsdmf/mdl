@@ -10,13 +10,16 @@ public class Video extends Media {
     
     private List<Variant> variants;
 
-    public Video() {}
+    public Video() {
+        super(MediaType.VIDEO);
+        this.variants = new ArrayList<>();
+    }
 
     public Video(List<Variant> variants) {
         this.variants = variants;
     }
 
-    public Video(JsonNode json) throws URISyntaxException {
+    public Video(JsonNode json) throws URISyntaxException, ResourceException {
         super(json);
 
         if (json.has("video_info")) {

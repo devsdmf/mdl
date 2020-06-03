@@ -5,9 +5,11 @@ import java.net.URISyntaxException;
 
 public class Photo extends Media {
 
-    public Photo() {}
+    public Photo() {
+        super(MediaType.PHOTO);
+    }
 
-    public Photo(JsonNode json) throws URISyntaxException {
+    public Photo(JsonNode json) throws URISyntaxException, ResourceException {
         super(json);
     }
 }

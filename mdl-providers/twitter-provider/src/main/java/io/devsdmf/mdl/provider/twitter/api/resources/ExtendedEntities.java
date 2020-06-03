@@ -9,13 +9,15 @@ public class ExtendedEntities implements Resource{
 
     private List<Media> media;
 
-    public ExtendedEntities() {}
+    public ExtendedEntities() {
+        this.media = new ArrayList<>();
+    }
 
     public ExtendedEntities(List<Media> media) {
         this.media = media;
     }
 
-    public ExtendedEntities(JsonNode json) throws URISyntaxException {
+    public ExtendedEntities(JsonNode json) throws URISyntaxException, ResourceException {
         if (json.has("media") && json.get("media").isArray()) {
             media = new ArrayList<>();
             for (JsonNode m: json.get("media")) {

@@ -22,7 +22,7 @@ public class TwitterExtractorTests {
         // mock
         HttpClient httpClient = mock(HttpClient.class);
         when(httpClient.execute(any(),any(HttpClientResponseHandler.class)))
-            .thenReturn(Resource.getResourceFileAsString("tweet.json"));
+            .thenReturn(Resource.getResourceFileAsString("tweet_with_video.json"));
 
         // given
         URI tweetUrl = new URI("https://twitter.com/devsdmf/status/1261658226283732992?s=20");

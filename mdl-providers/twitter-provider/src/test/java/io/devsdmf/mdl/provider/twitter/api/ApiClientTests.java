@@ -21,7 +21,7 @@ public class ApiClientTests {
         // mock
         HttpClient httpClient = mock(HttpClient.class);
         when(httpClient.execute(any(HttpGet.class),any(HttpClientResponseHandler.class)))
-                .thenReturn(Resource.getResourceFileAsString("tweet.json"));
+                .thenReturn(Resource.getResourceFileAsString("tweet_with_video.json"));
 
         // given
         String tweetId = "01234567890";

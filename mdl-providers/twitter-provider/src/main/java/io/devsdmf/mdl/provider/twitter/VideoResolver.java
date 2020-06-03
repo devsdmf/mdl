@@ -9,8 +9,6 @@ import java.util.Optional;
 
 public class VideoResolver implements Resolver {
 
-    private final static String DEFAULT_CONTENT_TYPE = "video/mp4";
-
     @Override
     public URI resolve(Tweet tweet) throws TwitterException {
         Optional<Media> video = filterVideo(tweet.getExtendedEntities().getMedia());

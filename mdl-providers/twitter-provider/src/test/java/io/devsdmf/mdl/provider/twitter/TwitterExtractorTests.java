@@ -18,6 +18,22 @@ import static org.mockito.Mockito.*;
 public class TwitterExtractorTests {
 
     @Test
+    public void testExtractMediaFromInvalidUrl() throws URISyntaxException {
+        // mock
+        HttpClient httpClient = mock(HttpClient.class);
+
+        // given
+        URI tweetUrl = new URI("https://twitter.com/devsdmf");
+        Extractor extractor = new TwitterExtractor(new Configuration(), new ApiClient(httpClient), new BearerTokenCredentials());
+
+        // when
+        Exception ex = Assertions.assertThrows(TwitterException.class, () -> extractor.extractVideoFrom(tweetUrl));
+
+        // then
+        Assertions.assertEquals("Could not extract tweet ID from the specified URL!", ex.getMessage());
+    }
+
+    @Test
     public void testExtractVideoSuccess() throws Exception {
         // mock
         HttpClient httpClient = mock(HttpClient.class);

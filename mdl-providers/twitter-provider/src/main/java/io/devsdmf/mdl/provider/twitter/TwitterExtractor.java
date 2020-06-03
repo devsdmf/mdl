@@ -7,7 +7,6 @@ import io.devsdmf.mdl.provider.twitter.api.resources.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,7 +29,7 @@ public class TwitterExtractor implements Extractor {
     }
 
     public URI extractImageFrom(URI src) throws TwitterException {
-        String tweetId = getTweetIdFromUri(src);
+        String tweetId = getTweetIdFromUrl(src);
         Optional<Tweet> tweet = client.getTweet(tweetId,credentials);
 
         if (tweet.isPresent()) {
@@ -42,7 +41,7 @@ public class TwitterExtractor implements Extractor {
     }
 
     public URI extractVideoFrom(URI src) throws TwitterException {
-        String tweetId = getTweetIdFromUri(src);
+        String tweetId = getTweetIdFromUrl(src);
         Optional<Tweet> tweet = client.getTweet(tweetId,credentials);
 
         if (tweet.isPresent()) {
@@ -53,15 +52,12 @@ public class TwitterExtractor implements Extractor {
         }
     }
 
-    private String getTweetIdFromUri(URI uri) throws TwitterException {
-        // TODO: Improve URL parsing and validation
-        String path = uri.getPath();
+    private String getTweetIdFromUrl(URI url) throws TwitterException {
+        Pattern p = Pattern.compile(TwitterUrlMatcher.PATTERN);
+        Matcher m = p.matcher(url.toString());
 
-        Pattern p = Pattern.compile("\\/(\\d+)");
-        Matcher m = p.matcher(path);
-
-        if (m.find()) {
-            return m.group(1).trim();
+        if (m.find() && m.groupCount() == 3) {
+            return m.group(3).trim();
         }
 
         throw new TwitterException("Could not extract tweet ID from the specified URL!");

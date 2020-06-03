@@ -3,7 +3,6 @@ package io.devsdmf.mdl.provider.twitter;
 import io.devsdmf.mdl.extractor.Extractor;
 import io.devsdmf.mdl.provider.twitter.api.ApiClient;
 import io.devsdmf.mdl.provider.twitter.api.auth.BearerTokenCredentials;
-import io.devsdmf.mdl.provider.twitter.exception.TwitterException;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.junit.jupiter.api.Assertions;
@@ -23,11 +22,11 @@ public class TwitterExtractorTests {
         // mock
         HttpClient httpClient = mock(HttpClient.class);
         when(httpClient.execute(any(),any(HttpClientResponseHandler.class)))
-            .thenReturn(Resource.getResourceFileAsString("tweet.json"));
+            .thenReturn(Resource.getResourceFileAsString("tweet_with_video.json"));
 
         // given
         URI tweetUrl = new URI("https://twitter.com/devsdmf/status/1261658226283732992?s=20");
-        Extractor extractor = new TwitterExtractor(new ApiClient(httpClient), new BearerTokenCredentials());
+        Extractor extractor = new TwitterExtractor(new Configuration(), new ApiClient(httpClient), new BearerTokenCredentials());
 
         // when
         URI videoUrl = extractor.extractVideoFrom(tweetUrl);
@@ -45,13 +44,13 @@ public class TwitterExtractorTests {
 
         // given
         URI tweetUrl = new URI("https://twitter.com/devsdmf/status/1261658226283732992?s=20");
-        Extractor extractor = new TwitterExtractor(new ApiClient(httpClient), new BearerTokenCredentials());
+        Extractor extractor = new TwitterExtractor(new Configuration(), new ApiClient(httpClient), new BearerTokenCredentials());
 
         // when
         Exception ex = Assertions.assertThrows(TwitterException.class, () -> extractor.extractVideoFrom(tweetUrl));
 
         // then
-        Assertions.assertEquals("Could not find any media in the specified tweet", ex.getMessage());
+        Assertions.assertEquals("Could not resolve any media of type video", ex.getMessage());
     }
 
     @Test
@@ -63,7 +62,7 @@ public class TwitterExtractorTests {
 
         // given
         URI tweetUrl = new URI("https://twitter.com/devsdmf/status/1261658226283732992?s=20");
-        Extractor extractor = new TwitterExtractor(new ApiClient(httpClient), new BearerTokenCredentials());
+        Extractor extractor = new TwitterExtractor(new Configuration(), new ApiClient(httpClient), new BearerTokenCredentials());
 
         // when
         Exception ex = Assertions.assertThrows(TwitterException.class, () -> extractor.extractVideoFrom(tweetUrl));
@@ -81,7 +80,7 @@ public class TwitterExtractorTests {
 
         // given
         URI tweetUrl = new URI("https://twitter.com/devsdmf/status/1261658226283732992?s=20");
-        Extractor extractor = new TwitterExtractor(new ApiClient(httpClient), new BearerTokenCredentials());
+        Extractor extractor = new TwitterExtractor(new Configuration(), new ApiClient(httpClient), new BearerTokenCredentials());
 
         // when
         Exception ex = Assertions.assertThrows(TwitterException.class, () -> extractor.extractVideoFrom(tweetUrl));

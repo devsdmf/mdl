@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.devsdmf.mdl.provider.twitter.api.auth.BearerTokenCredentials;
 import io.devsdmf.mdl.provider.twitter.api.auth.ConsumerKeySecretCredentials;
 import io.devsdmf.mdl.provider.twitter.api.auth.CredentialsException;
+import io.devsdmf.mdl.provider.twitter.api.resources.ResourceException;
 import io.devsdmf.mdl.provider.twitter.api.resources.Tweet;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -50,8 +51,8 @@ public class ApiClient {
 
             URI requestURI = getBaseURI()
                     .setPath(API_VERSION + "/statuses/show.json")
-                    .setParameter("id",tweetId)
-                    .setParameter("tweet_mode","extended")
+                    .setParameter("id", tweetId)
+                    .setParameter("tweet_mode", "extended")
                     .build();
 
             HttpGet request = new HttpGet(requestURI);
@@ -60,14 +61,13 @@ public class ApiClient {
             String result = httpClient.execute(request, new ResponseHandler());
             if (result != null) {
                 JsonNode json = mapper.readTree(result);
-                try {
-                    return Optional.of(new Tweet(json));
-                } catch (ParseException e) {
-                    logger.error("An error occurred at try to parse tweet, an exception was caught.",e);
-                    return Optional.empty();
-                }
+                return Optional.of(new Tweet(json));
             }
 
+            return Optional.empty();
+        } catch (ResourceException e) {
+            logger.error("An error occurred at trying to parse the requested tweet, " +
+                    "an exception was caught", e);
             return Optional.empty();
         } catch (URISyntaxException | IOException e) {
             logger.error("An error occurred at try to request access token, an exception was caught.",e);

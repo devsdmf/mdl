@@ -19,9 +19,11 @@ public class Tweet implements Resource {
 
     private Date createdAt;
 
-    public Tweet() {}
+    public Tweet() {
+        this.createdAt = new Date();
+    }
 
-    public Tweet(JsonNode json) throws URISyntaxException, ParseException {
+    public Tweet(JsonNode json) throws URISyntaxException, ResourceException {
         if (json.has("id")) {
             this.id = json.get("id").asLong();
         }
@@ -40,20 +42,40 @@ public class Tweet implements Resource {
 
         if (json.has("created_at")) {
             SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
-            this.createdAt = df.parse(json.get("created_at").asText());
+            try {
+                this.createdAt = df.parse(json.get("created_at").asText());
+            } catch (ParseException e) {
+                throw new ResourceException("An error occurred at try to parse the createdAt parameter",e);
+            }
         }
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getId() {
         return id;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public String getText() {
         return text;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public User getUser() {
         return user;
+    }
+
+    public void setExtendedEntities(ExtendedEntities entities) {
+        this.extendedEntities = entities;
     }
 
     public ExtendedEntities getExtendedEntities() {

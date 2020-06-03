@@ -1,4 +1,4 @@
-package io.devsdmf.mdl.provider.twitter.exception;
+package io.devsdmf.mdl.provider.twitter;
 
 public class TwitterException extends Exception {
 

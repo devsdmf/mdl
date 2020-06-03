@@ -10,9 +10,11 @@ public class AnimatedGif extends Media {
 
     private List<Variant> variants;
 
-    public AnimatedGif() {}
+    public AnimatedGif() {
+        super(MediaType.GIF);
+    }
 
-    public AnimatedGif(JsonNode json) throws URISyntaxException {
+    public AnimatedGif(JsonNode json) throws URISyntaxException, ResourceException {
         super(json);
 
         if (json.has("video_info")) {

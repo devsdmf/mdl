@@ -16,9 +16,15 @@ public class Media implements Resource {
 
     private MediaType type;
 
-    public Media() {}
+    public Media() {
+        this.type = MediaType.UNKNOWN;
+    }
 
-    public Media(JsonNode json) throws URISyntaxException {
+    protected Media(MediaType type) {
+        this.type = type;
+    }
+
+    public Media(JsonNode json) throws URISyntaxException, ResourceException {
         if (json.has("id")) {
             this.id = json.get("id").asLong();
         }
@@ -37,19 +43,37 @@ public class Media implements Resource {
 
         if (json.has("type")) {
             this.type = MediaType.fromValue(json.get("type").asText());
+        } else {
+            throw new ResourceException("You must specify a valid type");
         }
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getId() {
         return id;
     }
 
+    public void setUrl(URI url) {
+        this.url = url;
+    }
+
     public URI getUrl() {
         return url;
     }
 
+    public void setMediaUrl(URI url) {
+        this.mediaUrl = url;
+    }
+
     public URI getMediaUrl() {
         return mediaUrl;
+    }
+
+    public void setMediaUrlSecure(URI url) {
+        this.mediaUrlSecure = url;
     }
 
     public URI getMediaUrlSecure() {

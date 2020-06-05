@@ -43,7 +43,7 @@ public class DownloadCommand implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        System.out.println("Download command")
+        System.out.println("Download command");
         return 0;
     }
 }

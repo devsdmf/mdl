@@ -8,23 +8,23 @@ import io.devsdmf.mdl.provider.twitter.TwitterExtractor;
 import io.devsdmf.mdl.provider.twitter.api.ApiClient;
 import io.devsdmf.mdl.provider.twitter.api.auth.BearerTokenCredentials;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
+import picocli.CommandLine;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-/**
- * Hello world!
- *
- */
 public class Application
 {
 
     private static final String TWITTER_ACCESS_TOKEN = "AAAAAAAAAAAAAAAAAAAAAMHuigAAAAAACS0%2BL7OEdzPFCSVUy1veuIL7qkE%3D4uD3WZsk1jopEYDcfDdDI7mRzTGWavVBGwYdgM5zrmzqxcpTa3";
 
     public static void main(String[] args) {
-        try {
+        CommandLine command = new CommandLine(new DownloadCommand());
+        System.exit(command.execute(args));
+
+        /*try {
             URI tweetUrl = new URI(args[0]);
             String destinationFile = args[1];
 
@@ -53,6 +53,6 @@ public class Application
         } catch (Exception e) {
             System.out.println("An error occurred, an exception with message was caught: " + e.getMessage());
             e.printStackTrace();
-        }
+        }*/
     }
 }

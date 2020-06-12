@@ -1,4 +1,4 @@
-package io.devsdmf.mdl.extractor;
+package io.devsdmf.mdl.provider.extractor;
 
 import java.net.URI;
 

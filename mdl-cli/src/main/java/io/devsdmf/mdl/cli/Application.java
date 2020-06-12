@@ -1,12 +1,5 @@
 package io.devsdmf.mdl.cli;
 
-import io.devsdmf.mdl.downloader.Downloader;
-import io.devsdmf.mdl.downloader.SimpleHttpDownloader;
-import io.devsdmf.mdl.extractor.Extractor;
-import io.devsdmf.mdl.provider.twitter.TwitterExtractor;
-import io.devsdmf.mdl.provider.twitter.api.ApiClient;
-import io.devsdmf.mdl.provider.twitter.api.auth.BearerTokenCredentials;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.cfg4j.provider.ConfigurationProvider;
 import org.cfg4j.provider.ConfigurationProviderBuilder;
 import org.cfg4j.source.ConfigurationSource;
@@ -14,10 +7,6 @@ import org.cfg4j.source.context.filesprovider.ConfigFilesProvider;
 import org.cfg4j.source.files.FilesConfigurationSource;
 import picocli.CommandLine;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package io.devsdmf.mdl.provider.extractor;
+package io.devsdmf.mdl.provider;
 
 import java.util.HashMap;
 import java.util.Map;

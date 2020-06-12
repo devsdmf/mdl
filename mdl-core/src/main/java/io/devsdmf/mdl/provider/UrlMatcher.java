@@ -1,4 +1,4 @@
-package io.devsdmf.mdl.provider.matcher;
+package io.devsdmf.mdl.provider;
 
 import java.net.URI;
 

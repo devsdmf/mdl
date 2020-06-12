@@ -1,6 +1,6 @@
 package io.devsdmf.mdl.provider.twitter;
 
-import io.devsdmf.mdl.provider.extractor.Extractor;
+import io.devsdmf.mdl.provider.Extractor;
 import io.devsdmf.mdl.provider.twitter.api.ApiClient;
 import io.devsdmf.mdl.provider.twitter.api.auth.BearerTokenCredentials;
 import io.devsdmf.mdl.provider.twitter.api.resources.*;

@@ -1,3 +1,10 @@
 general:
-  downloadPath:
-  twitterAccessToken:
+  folders:
+    temp: ~
+    download: ~
+
+providers:
+  twitter:
+    enabled: true
+    options:
+      accessToken: ~

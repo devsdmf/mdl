@@ -1,29 +1,26 @@
 package io.devsdmf.mdl.cli;
 
-import org.cfg4j.provider.ConfigurationProvider;
-import org.cfg4j.provider.ConfigurationProviderBuilder;
-import org.cfg4j.source.ConfigurationSource;
-import org.cfg4j.source.context.filesprovider.ConfigFilesProvider;
-import org.cfg4j.source.files.FilesConfigurationSource;
+import com.fasterxml.jackson.databind.JsonNode;
+import io.devsdmf.mdl.cli.configuration.ConfigurationException;
+import io.devsdmf.mdl.cli.configuration.GeneralConfiguration;
+import io.devsdmf.mdl.cli.configuration.Loader;
 import picocli.CommandLine;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
+import java.util.Map;
 
 public class Application
 {
 
-    private static final String CONFIGURATION_FILE = ".mdlconfig.yaml";
+    private static final String DEFAULT_CONFIGURATION_FILE = ".mdlconfig.yaml";
 
-    public static void main(String[] args) {
-        ConfigFilesProvider filesProvider = () -> Arrays.asList(Paths.get(CONFIGURATION_FILE));
-        ConfigurationSource source = new FilesConfigurationSource(filesProvider);
-        ConfigurationProvider configProvider = new ConfigurationProviderBuilder()
-                .withConfigurationSource(source).build();
-
-        Configuration generalConfig = configProvider.bind("general",Configuration.class);
-        String downloadPath = generalConfig.downloadPath();
-        String accessToken = generalConfig.twitterAccessToken();
+    public static void main(String[] args) throws ConfigurationException {
+        String homeDirectory = System.getProperty("user.home");
+        Path configurationFile = Paths.get(homeDirectory + File.separator + DEFAULT_CONFIGURATION_FILE);
+        Map<String,Object> baseConfig = Loader.load(configurationFile);
+        GeneralConfiguration generalConfig = GeneralConfiguration.factory(baseConfig);
 
         CommandLine command = new CommandLine(new DownloadCommand());
         System.exit(command.execute(args));

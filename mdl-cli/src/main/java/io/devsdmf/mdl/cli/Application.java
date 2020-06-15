@@ -1,9 +1,11 @@
 package io.devsdmf.mdl.cli;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import io.devsdmf.mdl.cli.configuration.ConfigurationException;
 import io.devsdmf.mdl.cli.configuration.GeneralConfiguration;
 import io.devsdmf.mdl.cli.configuration.Loader;
+import io.devsdmf.mdl.cli.provider.ProviderException;
+import io.devsdmf.mdl.cli.provider.ProviderManager;
+import io.devsdmf.mdl.provider.Extractor;
 import picocli.CommandLine;
 
 import java.io.File;
@@ -16,11 +18,14 @@ public class Application
 
     private static final String DEFAULT_CONFIGURATION_FILE = ".mdlconfig.yaml";
 
-    public static void main(String[] args) throws ConfigurationException {
+    public static void main(String[] args) throws ConfigurationException, ProviderException {
         String homeDirectory = System.getProperty("user.home");
         Path configurationFile = Paths.get(homeDirectory + File.separator + DEFAULT_CONFIGURATION_FILE);
         Map<String,Object> baseConfig = Loader.load(configurationFile);
         GeneralConfiguration generalConfig = GeneralConfiguration.factory(baseConfig);
+
+        ProviderManager providerManager = ProviderManager.fromConfiguration(baseConfig);
+        Extractor extractor = providerManager.getExtractor("twitter");
 
         CommandLine command = new CommandLine(new DownloadCommand());
         System.exit(command.execute(args));

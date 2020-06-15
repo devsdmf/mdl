@@ -24,7 +24,7 @@ public class TwitterExtractorTests {
 
         // given
         URI tweetUrl = new URI("https://twitter.com/devsdmf");
-        Extractor extractor = new TwitterExtractor(new Configuration(), new ApiClient(httpClient), new BearerTokenCredentials());
+        Extractor extractor = new TwitterExtractor(new ApiClient(httpClient), new BearerTokenCredentials());
 
         // when
         Exception ex = Assertions.assertThrows(TwitterException.class, () -> extractor.extractVideoFrom(tweetUrl));
@@ -42,7 +42,7 @@ public class TwitterExtractorTests {
 
         // given
         URI tweetUrl = new URI("https://twitter.com/devsdmf/status/1261658226283732992?s=20");
-        Extractor extractor = new TwitterExtractor(new Configuration(), new ApiClient(httpClient), new BearerTokenCredentials());
+        Extractor extractor = new TwitterExtractor(new ApiClient(httpClient), new BearerTokenCredentials());
 
         // when
         URI videoUrl = extractor.extractVideoFrom(tweetUrl);
@@ -60,7 +60,7 @@ public class TwitterExtractorTests {
 
         // given
         URI tweetUrl = new URI("https://twitter.com/devsdmf/status/1261658226283732992?s=20");
-        Extractor extractor = new TwitterExtractor(new Configuration(), new ApiClient(httpClient), new BearerTokenCredentials());
+        Extractor extractor = new TwitterExtractor(new ApiClient(httpClient), new BearerTokenCredentials());
 
         // when
         Exception ex = Assertions.assertThrows(TwitterException.class, () -> extractor.extractVideoFrom(tweetUrl));
@@ -78,7 +78,7 @@ public class TwitterExtractorTests {
 
         // given
         URI tweetUrl = new URI("https://twitter.com/devsdmf/status/1261658226283732992?s=20");
-        Extractor extractor = new TwitterExtractor(new Configuration(), new ApiClient(httpClient), new BearerTokenCredentials());
+        Extractor extractor = new TwitterExtractor(new ApiClient(httpClient), new BearerTokenCredentials());
 
         // when
         Exception ex = Assertions.assertThrows(TwitterException.class, () -> extractor.extractVideoFrom(tweetUrl));
@@ -96,7 +96,7 @@ public class TwitterExtractorTests {
 
         // given
         URI tweetUrl = new URI("https://twitter.com/devsdmf/status/1261658226283732992?s=20");
-        Extractor extractor = new TwitterExtractor(new Configuration(), new ApiClient(httpClient), new BearerTokenCredentials());
+        Extractor extractor = new TwitterExtractor(new ApiClient(httpClient), new BearerTokenCredentials());
 
         // when
         Exception ex = Assertions.assertThrows(TwitterException.class, () -> extractor.extractVideoFrom(tweetUrl));

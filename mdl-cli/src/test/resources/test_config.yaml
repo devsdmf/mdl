@@ -1,0 +1,10 @@
+general:
+  folders:
+    temp: ~
+    download: ~
+
+providers:
+  twitter:
+    enabled: true
+    options:
+      accessToken: ~

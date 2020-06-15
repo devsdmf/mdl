@@ -1,0 +1,6 @@
+
+providers:
+  twitter:
+    enabled: true
+    options:
+      accessToken: ~

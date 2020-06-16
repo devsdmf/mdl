@@ -76,7 +76,7 @@ public class ProviderManagerTests {
         pm.addProvider("dummy2",false,new HashMap<>());
 
         // when
-        List<String> providers = pm.getProviders();
+        List<String> providers = pm.getEnabledProviders();
 
         // then
         Assertions.assertEquals(1,providers.size());

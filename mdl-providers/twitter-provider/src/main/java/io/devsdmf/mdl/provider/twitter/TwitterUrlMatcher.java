@@ -1,6 +1,6 @@
 package io.devsdmf.mdl.provider.twitter;
 
-import io.devsdmf.mdl.matcher.UrlMatcher;
+import io.devsdmf.mdl.provider.UrlMatcher;
 
 import java.net.URI;
 import java.util.regex.Matcher;

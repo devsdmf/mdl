@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -5,10 +6,9 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
+    <root level="ERROR">
         <appender-ref ref="STDOUT"/>
     </root>
 
-    <logger name="org.apache.hc" level="WARN"/>
-    <logger name="io.devsdmf.mdl.provider.twitter" level="INFO"/>
+    <logger name="ch.qos.logback" level="ERROR"/>
 </configuration>

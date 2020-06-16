@@ -10,6 +10,7 @@ import io.devsdmf.mdl.provider.twitter.api.resources.Tweet;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.*;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.net.URIBuilder;
@@ -20,7 +21,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
 
@@ -37,6 +37,10 @@ public class ApiClient {
     private final ObjectMapper mapper;
 
     private final Logger logger;
+
+    public ApiClient() {
+        this(HttpClients.createDefault());
+    }
 
     public ApiClient(HttpClient httpClient) {
         this.httpClient = httpClient;

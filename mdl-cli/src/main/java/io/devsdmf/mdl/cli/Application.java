@@ -5,14 +5,17 @@ import io.devsdmf.mdl.cli.configuration.GeneralConfiguration;
 import io.devsdmf.mdl.cli.configuration.Loader;
 import io.devsdmf.mdl.cli.provider.ProviderException;
 import io.devsdmf.mdl.cli.provider.ProviderManager;
-import io.devsdmf.mdl.provider.Extractor;
+import io.devsdmf.mdl.downloader.Downloader;
+import io.devsdmf.mdl.downloader.SimpleHttpDownloader;
 import picocli.CommandLine;
+import picocli.CommandLine.Command;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
+@Command
 public class Application
 {
 
@@ -20,45 +23,19 @@ public class Application
 
     public static void main(String[] args) throws ConfigurationException, ProviderException {
         String homeDirectory = System.getProperty("user.home");
+
         Path configurationFile = Paths.get(homeDirectory + File.separator + DEFAULT_CONFIGURATION_FILE);
+
         Map<String,Object> baseConfig = Loader.load(configurationFile);
         GeneralConfiguration generalConfig = GeneralConfiguration.factory(baseConfig);
 
         ProviderManager providerManager = ProviderManager.fromConfiguration(baseConfig);
-        Extractor extractor = providerManager.getExtractor("twitter");
 
-        CommandLine command = new CommandLine(new DownloadCommand());
-        System.exit(command.execute(args));
+        Downloader downloader = new SimpleHttpDownloader();
 
-        /*try {
-            URI tweetUrl = new URI(args[0]);
-            String destinationFile = args[1];
+        CommandLine cli = new CommandLine(new Application())
+                .addSubcommand(new DownloadCommand(generalConfig,providerManager,downloader));
 
-            Configuration config = new Configuration();
-            ApiClient twitterClient = new ApiClient(HttpClients.createDefault());
-            BearerTokenCredentials twitterCredentials = new BearerTokenCredentials(TWITTER_ACCESS_TOKEN);
-            Extractor extractor = new TwitterExtractor(config,twitterClient,twitterCredentials);
-
-            URI mediaUrl = extractor.extractVideoFrom(tweetUrl);
-
-            if (mediaUrl != null) {
-                Downloader downloader = new SimpleHttpDownloader();
-                File result = downloader.download(mediaUrl.toURL(),destinationFile);
-
-                if (result != null) {
-                    System.out.println("Successfully downloaded file!");
-                } else {
-                    System.out.println("Unknown error!");
-                }
-            } else {
-                throw new Exception("Could not find any media in the specified URL");
-            }
-
-        } catch (MalformedURLException | URISyntaxException e) {
-            System.out.println("An error occurred at try to parse the specified URL");
-        } catch (Exception e) {
-            System.out.println("An error occurred, an exception with message was caught: " + e.getMessage());
-            e.printStackTrace();
-        }*/
+        System.exit(cli.execute(args));
     }
 }

@@ -102,5 +102,23 @@ public class ProviderManagerTests {
     }
 
     @Test
-    public void testGetExtractorForDisabledProvider(){}
+    public void testGetExtractorForDisabledProvider() throws ProviderException {
+        // mock
+        Extractor ex = mock(Extractor.class);
+        ExtractorManager em = mock(ExtractorManager.class);
+        when(em.build(any(),any())).thenReturn(ex);
+
+        // given
+        ProviderManager pm = new ProviderManager(em);
+        pm.addProvider("dummy",false,new HashMap<>());
+
+        // when
+        ProviderException e = Assertions.assertThrows(
+                ProviderException.class,
+                () -> pm.getExtractor("dummy")
+        );
+
+        // then
+        Assertions.assertEquals("Attempting to fetch disabled extractor, please check your configuration",e.getMessage());
+    }
 }
